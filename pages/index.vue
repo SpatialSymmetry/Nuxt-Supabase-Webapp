@@ -1,3 +1,29 @@
+
+
+<script setup>
+
+import { createClient } from '@supabase/supabase-js'
+const supabase = createClient('https://lptqhmbbucinhiohuizg.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwdHFobWJidWNpbmhpb2h1aXpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEzMTk1MjksImV4cCI6MjAyNjg5NTUyOX0.fSPt6aAAydTx0AUNzdOSePSt9chLQ5cvC8F-WmumJbs')
+
+
+async function insDatabase(a, b, c){
+  const { data, error } = await supabase
+  .from('reviews')
+  .insert([
+  { title: a, author: b, reviewer: c },
+  ])
+  .select()
+}
+
+// insDatabase('eeeg', 'hhi', 'Jessica Jones')
+
+let { data: reviews, error2 } = await supabase
+.from('reviews')
+.select('*')
+
+
+</script>
+
 <template>
 
 <!-- Navigation Section -->
@@ -28,6 +54,7 @@
         </svg>
         Read the Guidelines
     </a>
+
 </div>
 </section>
 
@@ -51,15 +78,17 @@
     </div>
 
     <div class="relative w-full">
-      <input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Leave empty to get all entries." required />
-      <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-sky-800 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      <input type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm rounded-e-lg border-s-2 border
+      focus:ring-blue-500  bg-gray-700 border-s-gray-700 border-gray-600 placeholder-gray-400 text-white
+      focus:border-blue-500" placeholder="Leave empty to get all entries." />
+      <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white rounded-e-lg border
+        border-blue-700 focus:ring-4 focus:outline-none  bg-sky-800 hover:bg-blue-700 focus:ring-blue-800">
         <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
         </svg>
         <span class="sr-only">Search</span>
       </button>
     </div>
-
 
   </div>
 
@@ -68,7 +97,6 @@
     Filters Section
   </div>
 </form>
-
 
 <div class="max-w-screen-lg mx-auto py-20">
     <table class=" w-full text-left text-gray-400">
@@ -89,60 +117,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Title name placeholder
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="row in reviews">
+                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-white">
+                  {{row.title}}
                 </th>
                 <td class="px-6 py-4">
-                    Author name placeholder
+                  {{row.author}}
                 </td>
                 <td class="px-6 py-4">
-                    Reviewer name placeholder
+                  {{row.reviewer}}
                 </td>
                 <td class="px-6 py-4">
-                    2024/01/01
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Title name placeholder
-                </th>
-                <td class="px-6 py-4">
-                    Author name placeholder
-                </td>
-                <td class="px-6 py-4">
-                    Reviewer name placeholder
-                </td>
-                <td class="px-6 py-4">
-                    2024/01/01
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Title name placeholder
-                </th>
-                <td class="px-6 py-4">
-                    Author name placeholder
-                </td>
-                <td class="px-6 py-4">
-                    Reviewer name placeholder
-                </td>
-                <td class="px-6 py-4">
-                    2024/01/01
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Title name placeholder
-                </th>
-                <td class="px-6 py-4">
-                    Author name placeholder
-                </td>
-                <td class="px-6 py-4">
-                    Reviewer name placeholder
-                </td>
-                <td class="px-6 py-4">
-                    2024/01/01
+                  {{row.created_at}}
                 </td>
             </tr>
         </tbody>
