@@ -16,7 +16,40 @@ async function fetchSupabase() {
   }
 }
 
+function transformData(data) {
+  return data.map(entry => {
+    // Extracting the 'name' key from the 'fields' JSON object
+    return {
+      id: entry.id, // Assuming each entry has a unique 'id'
+      fields: entry.fields.map(item => item.name), // Directly accessing the 'name' field from the JSON
+      title: entry.title,
+      authors: entry.authors,
+      reviewer: entry.reviewer,
+      comment: entry.comment,
+      geoscope: entry.geoscope,
+      analytical_tools: entry.analytical_tools,
+      research_method: entry.research_method,
+      case_study: entry.case_study,
+      source_typography: entry.source_typography,
+      relevance: entry.relevance,
+      ref_typography: entry.ref_typography,
+      citation: entry.citation,
+      created_at: entry.created_at,
+      trend_keywords: entry.trend_keywords,
+    };
+  });
+}
 
+async function refreshIndex() {
+  const currentData = await fetchSupabase();
+  const transformedData = transformData(currentData);
+
+  // Clear the index
+  await index.deleteAllDocuments();
+
+  // Add new documents
+  await index.addDocuments(transformedData);
+}
 
 import { MeiliSearch } from 'meilisearch';
 
@@ -28,8 +61,13 @@ const meiliSearch = new MeiliSearch({
 // Create or get an existing index
 const index = await meiliSearch.index('your-index-name')
 
+refreshIndex()
+const database = transformData(await fetchSupabase())
+console.log(database)
+
 // Add or update documents in the index
-const response = await index.addDocuments(await fetchSupabase())
+const response = await index.addDocuments(database)
+// console.log(response)
 
 // Define your settings
 const settings = {
@@ -70,7 +108,7 @@ const settings = {
 await index.updateSettings(settings);
 
 // Optionally, fetch and log the updated settings to verify
-const settingsLog = await index.getSettings();
-console.log(settingsLog);
+// const settingsLog = await index.getSettings();
+//console.log(settingsLog);
 
 

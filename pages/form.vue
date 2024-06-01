@@ -135,18 +135,18 @@
           </div>
 
           <!-- Keywords -->
-          <div>
+          <div class="pt-5">
             <p class="text-gray-200 font-bold mb-3">Reference Keywords in accordance with the TREnD Project (Check as many as applies).</p>
             <div class="flex flex-wrap gap-4">
-              <div v-for="entry in trend_keyword_entries" :key="entry" class="flex items-center">
-                <input type="checkbox" v-model="form.trend_keywords[entry]" :id="`checkbox-${entry}`">
+              <div v-for="entry in trendKeywordEntries" :key="entry" class="flex items-center">
+                <input type="checkbox" :id="`checkbox-${entry}`" :checked="form.trend_keywords.includes(entry)" @change="handleKeywordChange($event, entry)">
                 <label :for="`checkbox-${entry}`" class="ml-2 text-gray-300">{{ entry }}</label>
               </div>
             </div>
           </div>
 
           <!-- Key Fields -->
-          <div>
+          <div class="pt-5">
             <p class="text-gray-200 font-bold mb-3">Key fields of investigation (Check as many as applies and write a note).</p>
             <div v-for="(field, index) in fieldsOfInvestigation" :key="index" class="mb-4">
               <div class="flex items-center mb-2">
@@ -182,12 +182,28 @@ const supabaseUrl = 'http://138.201.95.25:8000/';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+import { useFetch } from 'nuxt/app'
 
 //definePageMeta({
 //  middleware: 'auth'
 //});
 
-const trend_keyword_entries = ref([
+const form = ref({
+  title: '',
+  authors: [],
+  citation: '',
+  trend_keywords: [],
+  geoScope: '',
+  srcType: '',
+  retType: '',
+  relevance: '',
+  comment: '',
+  case_study: '',
+  research_methods: '',
+  analytical_tools: ''
+});
+
+const trendKeywordEntries = ref([
   'Shock', 'Innovation', 'Evolutionary Economy', 'Spatial Planning', 'Knowledge Economy',
   'Regional Economic variety related/unrelated', 'Resilience building process',
   'Resilience Strategies', 'Path Dependency', 'Path Reshaping', 'Transition Management Strategies',
@@ -196,14 +212,15 @@ const trend_keyword_entries = ref([
   'Urban informatics', 'Eco Districts', 'Machine Learning', 'Territorial Intelligence', 'Zoning',
   'Biodiversity'
 ])
-const selectedEntries = ref([])  // This will hold the selected items
 
-function initializeTrendKeywords() {
-  const entries = {};
-  trend_keyword_entries.value.forEach(entry => {
-    entries[entry] = false;
-  });
-  return entries;
+function handleKeywordChange(event, keyword) {
+  const { checked } = event.target;
+  const index = form.value.trend_keywords.indexOf(keyword);
+  if (checked && index === -1) {
+    form.value.trend_keywords.push(keyword);
+  } else if (!checked && index !== -1) {
+    form.value.trend_keywords.splice(index, 1);
+  }
 }
 
 const fieldsOfInvestigation = ref([
@@ -227,23 +244,6 @@ const fieldsOfInvestigation = ref([
   { name: 'Environment Risks', checked: false, note: '' },
 ]);
 
-
-const form = ref({
-  title: '',
-  authors: [],
-  citation: '',
-  trend_keywords: initializeTrendKeywords(),
-  geoScope: '',
-  srcType: '',
-  retType: '',
-  relevance: '',
-  comment: '',
-  case_study: '',
-  research_methods: '',
-  analytical_tools: ''
-});
-
-
 const newAuthor = ref('');
 const addAuthor = () => {
   if (newAuthor.value.trim()) {
@@ -254,8 +254,6 @@ const addAuthor = () => {
 const removeAuthor = (index) => {
   form.value.authors.splice(index, 1); // Remove specified author
 }
-
-
 
 
 const submitForm = async () => {
@@ -284,7 +282,7 @@ const submitForm = async () => {
       title: '',
       authors: [],
       citation: '',
-      trend_keywords: initializeTrendKeywords(),
+      trend_keywords: [],
       geoScope: '',
       srcType: '',
       refType: '',
@@ -300,10 +298,13 @@ const submitForm = async () => {
       field.note = '';
     });
 
+  useFetch('/api/updateIndex', { method: 'POST' })
+
   } catch (error) {
     console.error('Failed to submit form:', error);
   }
-};
 
+
+};
 
 </script>

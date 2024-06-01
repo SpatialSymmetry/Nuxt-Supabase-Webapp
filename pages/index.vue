@@ -10,17 +10,26 @@
     <p>Read the Guidelines</p>
     </NuxtLink>
   </div>
+
+</section>
+
+<section class="w-full bg-gray-200 ">
+  <div class="max-w-screen-lg mx-auto text-center px-4">
+  <button @click="toggleSearchType">{{ googleScholar ? 'Google Scholar' : 'Local TREnD Search' }}</button>
+  </div>
 </section>
 
 
-<!-- Search Section -->
-<section class="w-full bg-gray-200 pb-16">
-
-  <button @click="toggleSearchType">{{ googleScholar ? 'Switch to Simple Search' : 'Switch to Advanced Search' }}</button>
-  <div v-if="googleScholar">
-    <input type="text" v-model="advancedSearchQuery" placeholder="Advanced Search...">
-    <button @click="handleAdvancedSearch">Search</button>
+<section v-if="googleScholar" class="w-full bg-gray-200 py-10 pb-72">
+  <div class="max-w-screen-md mx-auto flex">
+    <input type="text" v-model="advancedSearchQuery" placeholder="Search will be directed to scholar.google.com"
+    class="w-full border-gray-300 rounded-md p-2 pl-4 focus:outline-none">
+    <button @click="handleAdvancedSearch" class="bg-blue-500 p-2 hover:bg-blue-700 text-white font-bold rounded hover:cursor-pointer">Search</button>
   </div>
+</section>
+
+<section v-else class="w-full bg-gray-200 pb-72">
+
 
     <ais-instant-search :search-client="searchClient" index-name="your-index-name" class="max-w-screen-lg mx-auto p-4">
 
@@ -61,6 +70,7 @@
               attribute="authors"
               operator="and"
               searchable="true"
+              searchable-placeholder="Search"
               :class-names="{
                 'ais-RefinementList': '',
                 'ais-RefinementList--noRefinemen': '',
@@ -71,7 +81,12 @@
                 'ais-RefinementList-labelText': '',
                 'ais-RefinementList-checkbox': 'mr-1',
                 'ais-RefinementList-count': 'hidden',
-                'ais-RefinementList-searchBox': '',
+                'ais-RefinementList-searchBox': 'rounded-md bg-white p-1 m-1',
+                'ais-SearchBox-input': 'w-full focus:outline-none caret-black text-gray-600 pl-2',
+                'ais-SearchBox-submit': 'hidden',
+                'ais-SearchBox-submitIcon': 'hidden',
+                'ais-SearchBox-reset': 'hidden',
+                'ais-SearchBox-resetIcon': 'hidden',
                 'ais-RefinementList-noResults': '',
                 'ais-RefinementList-showMore': '',
                 'ais-RefinementList-showMore--disabled': ''
@@ -86,6 +101,7 @@
               attribute="reviewer"
               operator="or"
               searchable="true"
+              searchable-placeholder="Search"
               :class-names="{
                 'ais-RefinementList': '',
                 'ais-RefinementList--noRefinemen': '',
@@ -96,7 +112,12 @@
                 'ais-RefinementList-labelText': '',
                 'ais-RefinementList-checkbox': 'mr-1',
                 'ais-RefinementList-count': 'hidden',
-                'ais-RefinementList-searchBox': '',
+                'ais-RefinementList-searchBox': 'rounded-md bg-white p-1 m-1',
+                'ais-SearchBox-input': 'w-full focus:outline-none caret-black text-gray-600 pl-2',
+                'ais-SearchBox-submit': 'hidden',
+                'ais-SearchBox-submitIcon': 'hidden',
+                'ais-SearchBox-reset': 'hidden',
+                'ais-SearchBox-resetIcon': 'hidden',
                 'ais-RefinementList-noResults': '',
                 'ais-RefinementList-showMore': '',
                 'ais-RefinementList-showMore--disabled': ''
@@ -104,6 +125,7 @@
             >
             </ais-refinement-list>
           </div>
+
 
           <div>
             <p class="font-bold">Filter by TREnD Keywords:</p>
@@ -128,6 +150,7 @@
             >
             </ais-refinement-list>
           </div>
+
 
           <div>
             <p class="font-bold">Filter by TREnD Fields of Investigation:</p>
