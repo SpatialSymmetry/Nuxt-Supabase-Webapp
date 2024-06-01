@@ -1,7 +1,7 @@
 
 <template>
 
-  <div class=" bg-gray-200 w-full">
+  <div class=" bg-gray-200 w-full min-h-screen">
     <!-- End of Navbar -->
 
     <div class="container max-w-screen-lg mx-auto p-5">
@@ -81,12 +81,12 @@
               </div>
               <ul class="list-inside space-y-2">
                 <li>
-                  <div class="text-teal-600">Owner at Her Company Inc.</div>
-                  <div class="text-gray-500 text-xs">March 2020 - Now</div>
+                  <div class="text-teal-600">First Review.</div>
+                  <div class="text-gray-500 text-xs">2020-04-01</div>
                 </li>
                 <li>
-                  <div class="text-teal-600">Owner at Her Company Inc.</div>
-                  <div class="text-gray-500 text-xs">March 2020 - Now</div>
+                  <div class="text-teal-600">Second Review.</div>
+                  <div class="text-gray-500 text-xs">2020-04-01</div>
                 </li>
               </ul>
             </div>

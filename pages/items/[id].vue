@@ -1,7 +1,7 @@
 
 <template>
 
-  <section v-if="data" class="w-full bg-gray-200 pt-20 pb-12 lg:pt-36 lg:pb-10">
+  <section v-if="data" class="w-full bg-gray-200 pt-16 pb-12 lg:pt-20 lg:pb-10">
     <div class="max-w-screen-lg mx-auto text-center px-4">
       <p class="font-extrabold tracking-tight text-gray-900 text-3xl">{{ data.title }}</p>
       <p class="pt-2 tracking-tight text-xl">{{ data.authors.join(', ') }}</p>

@@ -13,7 +13,7 @@
 
 </section>
 
-<section class="w-full bg-gray-200 ">
+<section class="w-full bg-gray-200">
   <div class="max-w-screen-lg mx-auto text-center px-4">
   <button @click="toggleSearchType"
     class="text-gray-200 p-2 border border-gray-200 rounded-lg bg-gray-900"><span class="font-bold">Search Mode:</span> {{ googleScholar ? 'Google Scholar' : 'Local TREnD Search' }}</button>
@@ -21,7 +21,7 @@
 </section>
 
 
-<section v-if="googleScholar" class="w-full bg-gray-200 py-10 pb-72">
+<section v-if="googleScholar" class="w-full min-h-screen bg-gray-200 py-10 ">
     <form @submit.prevent="handleSearch" class="lg:w-3/4 max-w-screen-md mx-auto flex gap-2">
       <input type="text" v-model="query" placeholder="Search will be directed to scholar.google.com"
       class="w-full border border-gray-300 rounded-md p-2 pl-4 focus:outline-none">
@@ -31,7 +31,7 @@
 
 
 
-<section v-else class="w-full bg-gray-200 pb-72">
+<section v-else class="w-full bg-gray-200 min-h-screen">
 
 
     <ais-instant-search :search-client="searchClient" index-name="your-index-name" class="max-w-screen-lg mx-auto p-4">
