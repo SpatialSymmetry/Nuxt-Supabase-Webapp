@@ -24,7 +24,7 @@
 <section v-if="googleScholar" class="w-full min-h-screen bg-gray-200 py-10 ">
   <div class="lg:w-3/4 max-w-screen-md mx-auto ">
     <form @submit.prevent="handleSearch" class="mx-5 flex gap-2">
-      <input type="text" v-model="query" placeholder="Search will be directed to scholar.google.com"
+      <input type="text" v-model="query" placeholder="Redirected to scholar.google.com"
       class="w-full border border-gray-300 rounded-md p-2 pl-4 focus:outline-none">
       <button @click="submit" class="bg-blue-500 p-2 hover:bg-blue-700 text-white font-bold rounded hover:cursor-pointer">Search</button>
     </form>
