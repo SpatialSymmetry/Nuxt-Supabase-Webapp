@@ -10,9 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@meilisearch/instant-meilisearch": "^0.17.0",
     "@supabase/supabase-js": "^2.41.1",
+    "instantsearch.css": "^8.1.0",
+    "meilisearch": "^0.38.0",
     "nuxt": "^3.11.1",
     "vue": "^3.4.21",
+    "vue-instantsearch": "^4.16.0",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

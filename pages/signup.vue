@@ -1,0 +1,116 @@
+
+<template>
+
+<!-- Hero Section -->
+
+  <div class="flex items-center justify-center min-h-screen bg-gray-200 px-4">
+
+    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
+
+      <h1 class="text-center text-xl tracking-tight">TREnD Litrature Review Portal Sign Up.</h1>
+
+      <form @submit.prevent="signup" class="space-y-4">
+
+        <div class="pb-2">
+          <label for="email" class="pb-3 block text-sm font-medium text-gray-700">Enter Your Email:</label>
+          <input type="email" v-model="email" required 
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <p v-if="emailError" class="text-red-500 text-sm mt-2">{{ emailError }}</p>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">Set Your Account's Password: (It has to contain atleast 8 character, upper and lower case letters, a number and a symbol.)</label>
+          <input type="password" v-model="password" required 
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+          <p class="mt-3 block text-sm font-medium text-gray-700">Verify Your Password</p>
+          <input type="password" v-model="password_confirm" required 
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+          <p class="mt-3 block text-sm font-medium text-gray-700">Enter Your First Name:</p>
+          <input type="password" v-model="password_confirm" required 
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+          <p class="mt-3 block text-sm font-medium text-gray-700">Enter Your Last Name:</p>
+          <input type="password" v-model="password_confirm" required 
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+          <p class="mt-3 block text-sm font-medium text-gray-700">Select Your University/Institution:</p>
+          <input type="password" v-model="password_confirm" required 
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400
+            focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+        </div>
+
+        <div>
+          <button type="submit" :disabled="!isEmailValid"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm
+            font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+            focus:ring-offset-2 focus:ring-indigo-500">
+            Sign Up
+          </button>
+        </div>
+
+        <p class="text-sm text-center">Already have an account?
+        <NuxtLink to="/login" class="text-indigo-600 hover:text-indigo-500">Log In</NuxtLink>
+        </p>
+
+      </form>
+
+    </div>
+
+  </div>
+</template>
+
+<script setup>
+
+definePageMeta({
+  layout: ''
+})
+
+
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = 'https://tirgpitrrqhxamhohmxe.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmdwaXRycnFoeGFtaG9obXhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE3MDY5MDgsImV4cCI6MjAyNzI4MjkwOH0.p8PK1g_wW5lG12NS7apvLqX8Iu5Rl-PaHyzlqlWpXN4'
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+const router = useRouter()
+const email = ref('')
+const allowedSuffixes = ["@gmail.com", "@organization.org", "@institution.edu"]
+const emailError = ref('')
+const password = ref('')
+const password_confirm = ref('')
+
+const isEmailValid = computed(() => {
+  // Check if the email ends with any of the allowed suffixes
+  const isValidSuffix = allowedSuffixes.some(suffix => email.value.endsWith(suffix));
+  if (isValidSuffix) {
+    emailError.value = ''
+    return true
+  } else {
+    emailError.value = `Please use a professional email that ends with one of the following: ${allowedSuffixes.join(', ')}`
+    return false
+  }
+})
+
+async function signup() {
+  if (isEmailValid.value){
+    const { user, error } = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value
+    })
+    console.log("Signing up with:", email.value)
+  }
+  if (error) {
+    authError.value = error.message
+    console.log("authError:", email.value)
+  } else {
+    router.push('/confirmation')  // Redirect to a confirmation page or similar
+  }
+}
+
+</script>
+

@@ -1,202 +1,309 @@
 
-<script setup>
-
-import { createClient } from '@supabase/supabase-js'
-const supabase = createClient('https://tirgpitrrqhxamhohmxe.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmdwaXRycnFoeGFtaG9obXhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE3MDY5MDgsImV4cCI6MjAyNzI4MjkwOH0.p8PK1g_wW5lG12NS7apvLqX8Iu5Rl-PaHyzlqlWpXN4')
-
-async function insDatabase(a, b, c){
-  const { data, error } = await supabase
-  .from('reviews')
-  .insert([
-  { title: a, author: b, reviewer: c },
-  ])
-  .select()
-}
-
-import { defineProps } from 'vue';
-const props = defineProps();
-
-
-const handleSubmit = (event) => {
-  const name = event.target.elements.nameInput.value;
-  const email = event.target.elements.emailInput.value;
-
-  console.log('Name:', name);
-  console.log('Email:', email);
-
-  // You can store the values in variables or perform further processing here
-async function insDatabase(a, b, c){
-  const { data, error } = await supabase
-  .from('reviews')
-  .insert([
-  { title: a, author: b, reviewer: c },
-  ])
-  .select()
-}
-insDatabase(name, email, "Poya Sohrabi")
-
-};
-
-</script>
-
-
-
 <template>
+  <div class="w-full bg-gray-200 pt-1 pb-10">
+    <div class="max-w-screen-lg mx-auto">
+      <div class="bg-gray-700 text-gray-100 m-5 p-5 rounded-lg shadow-lg">
 
-<!-- Navigation Section -->
-<section class="w-full bg-gray-200">
-<div class="max-w-screen-lg mx-auto py-5 text-gray-900 font-medium flex justify-between">
-  <NuxtLink to="/">TREnD</NuxtLink>
-  <div class="flex gap-6">
-    <NuxtLink href="/">Home</NuxtLink>
-    <NuxtLink to="/form">Form</NuxtLink>
-    <NuxtLink href="/guidelines">Guidelines</NuxtLink>
-  </div>
-  <NuxtLink to="/profile">Profile</NuxtLink>
-</div>
-</section>
-
-<section class="w-full bg-gray-200 text-white pt-9 pb-36">
-  <div class="max-w-screen-lg mx-auto p-16 bg-gray-900 rounded-lg">
-    <p class="mb-4 text-xl font-bold">TREnD Litrature Review Form</p>
-    <form @submit.prevent="handleSubmit">
-      <p class="py-4 text-gray-400">Note: Your credentials such as your name and institution will be loaded from your user profile.</p>
-      <div class="grid gap-4">
-
-        <div>
-          <label class="block mb-2 text-sm font-medium" >Title</label>
-          <input type="text" id="nameInput" class=" block w-full p-2.5 bg-gray-700 border border-gray-600
-          rounded-lg text-sm placeholder:text-gray-400 text-white" placeholder="Type" required>
+        <div class="text-center my-10">
+          <p class="font-extrabold tracking-tight text-4xl mb-2">TREnD Litrature Form.</p>
+          <p class="sm:px-16 xl:px-44 text-gray-400">Your information, including your name and institution, will be automatically retrieved from your user profile. Each note section is expandable; simply drag the bottom-right corner downward to adjust the size.</p>
         </div>
 
-        <div>
-          <label class="block mb-2 text-sm font-medium">Author(s)</label>
-          <input type="text" id="emailInput" class=" block w-full p-2.5 bg-gray-700 border border-gray-600
-          rounded-lg text-sm placeholder-gray-400 text-white" placeholder="Type" required>
-        </div>
+        <form @submit.prevent="submitForm" class="space-y-4 lg:mx-10">
 
-        <div>
-          <label for="category" class="block mb-2 text-sm font-medium">Source Typology</label>
-          <select id="category" class="block w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm
-            placeholder-gray-400">
-            <option selected="">Select</option>
-            <option value="TV">Journal Article</option>
-            <option value="TV">Book Chapter</option>
-            <option value="TV">Book</option>
-            <option value="PC">Review (book)</option>
-            <option value="GA">Editorial</option>
-            <option value="GA">Conference Proceedings</option>
-            <option value="GA">Thesis/Dissertations</option>
-            <option value="GA">Working Paper</option>
-            <option value="GA">Official Report</option>
-            <option value="GA">Other (Specify)</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="name" class="block mb-2 text-sm font-medium">Citation (MLA)</label>
-          <input type="text" name="name" id="name" class=" block w-full p-2.5 bg-gray-700 border border-gray-600
-          rounded-lg text-sm text-gray-900 placeholder-gray-400" placeholder="Paste here">
-        </div>
-
-        <div>
-          <label for="category" class="block mb-2 text-sm font-medium">Geographical Scope</label>
-          <select id="category" class="block w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm
-            placeholder-gray-400">
-            <option selected="">Select</option>
-            <option value="TV">EU</option>
-            <option value="TV">United States</option>
-            <option value="TV">National</option>
-            <option value="PC">Regional</option>
-            <option value="GA">Local</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="category" class="block mb-2 text-sm font-medium">Degree of Relevence</label>
-          <select id="category" class="block w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm
-            placeholder-gray-400">
-            <option selected="">Select</option>
-            <option value="TV">Low</option>
-            <option value="TV">Moderate</option>
-            <option value="TV">High</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="category" class="block mb-2 text-sm font-medium">Reference Typology</label>
-          <select id="category" class="block w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm
-            placeholder-gray-400">
-            <option selected="">Select</option>
-            <option value="TV">Theoretical</option>
-            <option value="TV">Litrature Review Analysis</option>
-            <option value="TV">Methodology</option>
-            <option value="PC">Bases Practices and/or Case Studies</option>
-            <option value="GA">Policy Recommendation</option>
-            <option value="GA">Policy Analysis</option>
-            <option value="GA">Other (Specify)</option>
-          </select>
-        </div>
-
-        <div class="col-span-2 flex flex-col my-10">
-          <p class="font-semibold "> Reference Keywords in accordance with the TREnD Project (Check as many as applies).</p>
-          <div class="mt-2 flex gap-4 flex-wrap">
-
-          <div v-for="entry in ['Shock', 'Innovation', 'Evolutionary Economy',
-            'Spatial Planning', 'Knowledge Economy', 'Regional Economic variety related/unrelated',
-            'Reselience building process', 'Reselience Strategies', 'Path Dependency', 'Path Reshaping',
-            'Transition Managment Strategies', 'Co-evolutionary process', 'Strategy/Tactic Approach',
-            'Urban Transition Managment', 'Risk Management', 'Local Transformation', 'Innovative Ecosystem']"
-            class="flex items-center" >
-            <input type="checkbox" class="w-4 h-5 text-blue-600 rounded
-            focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600">
-            <label class="ms-2 text-sm font-bold text-gray-300">{{entry}}</label>
+          <!-- Title -->
+          <div class="flex flex-col">
+            <label class="mb-2 text-gray-200 font-medium">Title</label>
+            <input v-model="form.title" type="text" class="bg-gray-300 rounded p-2 text-gray-700" placeholder="Enter title name" required>
           </div>
 
+          <!-- Authors -->
+          <div>
+            <label class="block text-gray-200 font-medium mb-2">Authors</label>
+            <div class="flex gap-4 items-center">
+              <input type="text" v-model="newAuthor" placeholder="Enter author's name" class="bg-gray-300 rounded p-2 text-gray-700 flex-1">
+              <button @click.prevent="addAuthor" type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                Add
+              </button>
+            </div>
+            <div class="mt-4">
+              <ul class="list-disc pl-5">
+                <li v-for="(author, index) in form.authors" :key="index" class="flex items-center justify-between mt-2">
+                  <span class="text-gray-300">{{ author }}</span>
+                  <button @click="removeAuthor(index)" class="text-red-500 hover:text-red-700 font-medium">
+                    Remove
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <p class="font-semibold col-span-2"> Key fields of investigation (Check as many as applies and write a note).</p>
-        <div class="col-span-2"   v-for="entry in ['Economic Resilience', 'Technological Resilience', 'Urban Resiliecne',
-          'Governance', 'Policy', 'Strategy (Place-based Approach, Place-sensitive Appraoch, Other)', 'Spatial Planning',
-          'Cluster', 'Knowledeg Complexity', 'Global Market Power', 'Quality of life', 'Inequalities', 'Competitve Advantage',
-          'Core/Peripheral areas', 'Advanced/Lagging regions-cities', 'Urbran Transition', 'Local Transformations',
-          'Environemnt Risks', 'Other (Specify)']">
-          <div class="flex mb-2">
-            <p class="text-white text-sm font-medium">{{entry}}</p>
-            <input type="checkbox" class="w-4 h-5 ml-2 bg-gray-700 text-sm text-gray-900">
+          <!-- Citation -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Citation (MLA)</label>
+            <input v-model="form.citation" type="text" placeholder="Paste here" class="bg-gray-300 rounded p-2 w-full text-gray-700">
           </div>
-          <textarea rows="1" class="p-2 w-full text-sm rounded-lg border focus:ring-primary-500
-            focus:border-primary-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white
-            focus:ring-primary-500 focus:border-primary-500" placeholder="Write a note..."></textarea>
-        </div>
 
-        <form class="col-span-2">
-          <p class="mb-2 text-sm font-medium text-white">Upload the document</p>
-          <input class="w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700
-          border-gray-600 placeholder-gray-400" type="file">
+          <!-- Geographical Scope -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Geographical Scope</label>
+            <select v-model="form.geoScope" class="bg-gray-300 rounded p-2 w-full text-gray-700 cursor-pointer">
+              <option disabled value="">Select</option>
+              <option value="EU">EU</option>
+              <option value="United States">United States</option>
+              <option value="National">National</option>
+              <option value="Regional">Regional</option>
+              <option value="Local">Local</option>
+            </select>
+          </div>
+
+          <!-- Source Typology -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Source Typology</label>
+            <select v-model="form.srcType" class="bg-gray-300 rounded p-2 w-full text-gray-700 cursor-pointer">
+              <option disabled value="">Select</option>
+              <option value="Journal Article">Journal Article</option>
+              <option value="Book Chapter">Book Chapter</option>
+              <option value="Book">Book</option>
+              <option value="Review">Review (book)</option>
+              <option value="Editorial">Editorial</option>
+              <option value="Conference Proceedings">Conference Proceedings</option>
+              <option value="Thesis/Dissertations">Thesis/Dissertations</option>
+              <option value="Working Paper">Working Paper</option>
+              <option value="Official Report">Official Report</option>
+              <option value="Other">Other (Specify)</option>
+            </select>
+          </div>
+
+          <!-- Reference Typology -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Reference Typology</label>
+            <select v-model="form.refType" class="bg-gray-300 rounded p-2 w-full text-gray-700 cursor-pointer">
+              <option disabled value="">Select</option>
+              <option value="Theoretical">Theoretical</option>
+              <option value="Literature Review Analysis">Literature Review Analysis</option>
+              <option value="Methodology">Methodology</option>
+              <option value="Best Practices and/or Case Studies">Best Practices and/or Case Studies</option>
+              <option value="Policy Recommendation">Policy Recommendation</option>
+              <option value="Policy Analysis">Policy Analysis</option>
+            </select>
+          </div>
+
+
+          <!-- Degree of Relevance -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Degree of Relevance</label>
+            <select v-model="form.relevance" class="bg-gray-300 rounded p-2 w-full text-gray-700 cursor-pointer">
+              <option disabled value="">Select</option>
+              <option value="Low">Low</option>
+              <option value="Moderate">Moderate</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+
+          <!-- Case Study -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Case Study</label>
+            <select v-model="form.case_study" class="bg-gray-300 rounded p-2 w-full text-gray-700 cursor-pointer">
+              <option disabled value="">Select</option>
+              <option value="True">True</option>
+              <option value="False">False</option>
+            </select>
+          </div>
+
+          <!-- Research Methods -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Research Methods</label>
+            <select v-model="form.research_methods" class="bg-gray-300 rounded p-2 w-full text-gray-700 cursor-pointer">
+              <option disabled value="">Select</option>
+              <option value="Qualitative">Qualitative</option>
+              <option value="Quantitative">Quantitative</option>
+              <option value="Mixed">Mixed Methods</option>
+            </select>
+          </div>
+
+          <!-- Analytical Tools -->
+          <div class="mt-4">
+            <label class="block text-gray-200 font-medium mb-2">Analytical Tools</label>
+            <select v-model="form.analytical_tools" class="bg-gray-300 rounded p-2 w-full text-gray-700 cursor-pointer">
+              <option disabled value="">Select</option>
+              <option value="Spatial">Spatial</option>
+              <option value="Statistics">Statistics</option>
+              <option value="Network Analysis">Network Analysis</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- Keywords -->
+          <div>
+            <p class="text-gray-200 font-bold mb-3">Reference Keywords in accordance with the TREnD Project (Check as many as applies).</p>
+            <div class="flex flex-wrap gap-4">
+              <div v-for="entry in trend_keyword_entries" :key="entry" class="flex items-center">
+                <input type="checkbox" v-model="form.trend_keywords[entry]" :id="`checkbox-${entry}`">
+                <label :for="`checkbox-${entry}`" class="ml-2 text-gray-300">{{ entry }}</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Fields -->
+          <div>
+            <p class="text-gray-200 font-bold mb-3">Key fields of investigation (Check as many as applies and write a note).</p>
+            <div v-for="(field, index) in fieldsOfInvestigation" :key="index" class="mb-4">
+              <div class="flex items-center mb-2">
+                <input type="checkbox" v-model="field.checked" id="field-{{ index }}">
+                <label for="field-{{ index }}" class="ml-2 text-gray-300">{{ field.name }}</label>
+              </div>
+              <textarea rows="1" v-model="field.note" placeholder="Write a note..." class="w-full bg-gray-300 rounded p-2 text-gray-700"></textarea>
+            </div>
+          </div>
+
+
+          <!-- Comment -->
+          <div class="mt-4">
+            <label for="comment" class="block text-gray-200 font-medium mb-2">Comment</label>
+            <textarea id="comment" v-model="form.comment" rows="8" class="w-full p-3 bg-gray-300 text-gray-700 rounded focus:outline-none focus:shadow-outline"></textarea>
+          </div>
+
+          <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            Submit
+          </button>
+
         </form>
 
-
-        <div class="col-span-2">
-          <label class="text-sm font-medium text-white">Comment</label>
-          <textarea rows="8" class="p-2.5 w-full text-sm rounded-lg border focus:ring-primary-500
-            focus:border-primary-500 bg-gray-700 border-gray-600 placeholder-gray-400 text-white
-            focus:ring-primary-500 focus:border-primary-500" placeholder="Your comment here"></textarea>
-        </div>
-
       </div>
-
-      <button type="submit" class="px-5 py-2.5 mt-4 border rounded-lg  inline-flex items-center text-sm font-medium text-center">
-        Add to database
-      </button>
-      <button type="reset" class="px-5 py-2.5 mt-4 ml-3 border rounded-lg  inline-flex items-center text-sm font-medium text-center">
-        Clear all
-      </button>
-
-    </form>
+    </div>
   </div>
-</section>
-
-
 </template>
+
+<script setup>
+
+import { createClient } from '@supabase/supabase-js';
+const supabaseUrl = 'http://138.201.95.25:8000/';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+
+//definePageMeta({
+//  middleware: 'auth'
+//});
+
+const trend_keyword_entries = ref([
+  'Shock', 'Innovation', 'Evolutionary Economy', 'Spatial Planning', 'Knowledge Economy',
+  'Regional Economic variety related/unrelated', 'Resilience building process',
+  'Resilience Strategies', 'Path Dependency', 'Path Reshaping', 'Transition Management Strategies',
+  'Co-evolutionary process', 'Strategy/Tactic Approach', 'Urban Transition Management',
+  'Risk Management', 'Local Transformation', 'Innovative Ecosystem', 'Urban Ecosystem Services',
+  'Urban informatics', 'Eco Districts', 'Machine Learning', 'Territorial Intelligence', 'Zoning',
+  'Biodiversity'
+])
+const selectedEntries = ref([])  // This will hold the selected items
+
+function initializeTrendKeywords() {
+  const entries = {};
+  trend_keyword_entries.value.forEach(entry => {
+    entries[entry] = false;
+  });
+  return entries;
+}
+
+const fieldsOfInvestigation = ref([
+  { name: 'Economic Resilience', checked: false, note: '' },
+  { name: 'Technological Resilience', checked: false, note: '' },
+  { name: 'Urban Resilience', checked: false, note: '' },
+  { name: 'Governance', checked: false, note: '' },
+  { name: 'Policy', checked: false, note: '' },
+  { name: 'Strategy (Place-based Approach, Place-sensitive Approach, Other)', checked: false, note: '' },
+  { name: 'Spatial Planning', checked: false, note: '' },
+  { name: 'Cluster', checked: false, note: '' },
+  { name: 'Knowledge Complexity', checked: false, note: '' },
+  { name: 'Global Market Power', checked: false, note: '' },
+  { name: 'Quality of life', checked: false, note: '' },
+  { name: 'Inequalities', checked: false, note: '' },
+  { name: 'Competitive Advantage', checked: false, note: '' },
+  { name: 'Core/Peripheral areas', checked: false, note: '' },
+  { name: 'Advanced/Lagging regions-cities', checked: false, note: '' },
+  { name: 'Urban Transition', checked: false, note: '' },
+  { name: 'Local Transformations', checked: false, note: '' },
+  { name: 'Environment Risks', checked: false, note: '' },
+]);
+
+
+const form = ref({
+  title: '',
+  authors: [],
+  citation: '',
+  trend_keywords: initializeTrendKeywords(),
+  geoScope: '',
+  srcType: '',
+  retType: '',
+  relevance: '',
+  comment: '',
+  case_study: '',
+  research_methods: '',
+  analytical_tools: ''
+});
+
+
+const newAuthor = ref('');
+const addAuthor = () => {
+  if (newAuthor.value.trim()) {
+    form.value.authors.push(newAuthor.value.trim()); // Push to the reactive authors array
+    newAuthor.value = ''; // Clear the input after adding
+  }
+}
+const removeAuthor = (index) => {
+  form.value.authors.splice(index, 1); // Remove specified author
+}
+
+
+
+
+const submitForm = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('reviews')
+      .insert([{
+        title: form.value.title,
+        authors: form.value.authors,
+        trend_keywords: form.value.trend_keywords,
+        geoscope: form.value.geoScope,
+        fields: fieldsOfInvestigation.value,
+        source_typography: form.value.srcType,
+        ref_typography: form.value.refType,
+        relevance: form.value.relevance,
+        citation: form.value.citation,
+        comment: form.value.comment,
+        case_study: form.value.case_study,
+        research_method: form.value.research_methods,
+        analytical_tools: form.value.analytical_tools
+      }]);
+    if (error) throw error;
+
+    // Reset all form fields
+    form.value = {
+      title: '',
+      authors: [],
+      citation: '',
+      trend_keywords: initializeTrendKeywords(),
+      geoScope: '',
+      srcType: '',
+      refType: '',
+      relevance: '',
+      comment: '',
+      case_study: '',
+      research_methods: '',
+      analytical_tools: ''
+    };
+        // Reset fields of investigation
+    fieldsOfInvestigation.value.forEach(field => {
+      field.checked = false;
+      field.note = '';
+    });
+
+  } catch (error) {
+    console.error('Failed to submit form:', error);
+  }
+};
+
+
+</script>
