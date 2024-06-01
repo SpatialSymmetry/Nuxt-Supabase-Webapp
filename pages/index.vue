@@ -15,18 +15,21 @@
 
 <section class="w-full bg-gray-200 ">
   <div class="max-w-screen-lg mx-auto text-center px-4">
-  <button @click="toggleSearchType">{{ googleScholar ? 'Google Scholar' : 'Local TREnD Search' }}</button>
+  <button @click="toggleSearchType"
+    class="text-gray-200 p-2 border border-gray-200 rounded-lg bg-gray-900"><span class="font-bold">Search Mode:</span> {{ googleScholar ? 'Google Scholar' : 'Local TREnD Search' }}</button>
   </div>
 </section>
 
 
 <section v-if="googleScholar" class="w-full bg-gray-200 py-10 pb-72">
-  <div class="max-w-screen-md mx-auto flex">
-    <input type="text" v-model="advancedSearchQuery" placeholder="Search will be directed to scholar.google.com"
-    class="w-full border-gray-300 rounded-md p-2 pl-4 focus:outline-none">
-    <button @click="handleAdvancedSearch" class="bg-blue-500 p-2 hover:bg-blue-700 text-white font-bold rounded hover:cursor-pointer">Search</button>
-  </div>
+    <form @submit.prevent="handleSearch" class="lg:w-3/4 max-w-screen-md mx-auto flex gap-2">
+      <input type="text" v-model="query" placeholder="Search will be directed to scholar.google.com"
+      class="w-full border border-gray-300 rounded-md p-2 pl-4 focus:outline-none">
+      <button @click="submit" class="bg-blue-500 p-2 hover:bg-blue-700 text-white font-bold rounded hover:cursor-pointer">Search</button>
+    </form>
 </section>
+
+
 
 <section v-else class="w-full bg-gray-200 pb-72">
 
@@ -417,6 +420,7 @@
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const googleScholar = ref(false)
+const query = ref('')
 const toggleSearchType = () => {
   googleScholar.value = !googleScholar.value
 }
@@ -429,6 +433,18 @@ const showFilters = ref(false);
 function toggleFilters() {
   showFilters.value = !showFilters.value;
 }
+
+const handleSearch = () => {
+  if (googleScholar.value) {
+    const baseUrl = 'https://scholar.google.com/scholar?q='
+    const formattedQuery = encodeURIComponent(query.value)
+    window.open(baseUrl + formattedQuery, '_blank')
+  } else {
+    // Implement local TREnD search logic here
+    console.log("Local search for:", query.value)
+  }
+}
+
 </script>
 
 
