@@ -1,4 +1,5 @@
 
+
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-200 px-4">
     <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">

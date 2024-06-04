@@ -1,5 +1,6 @@
 <template>
 
+
 <!-- Hero Section -->
 <section class="w-full bg-gray-200 pt-20 pb-12 lg:pt-36 lg:pb-24">
   <div class="max-w-screen-lg mx-auto text-center px-4">
@@ -15,13 +16,13 @@
 
 <section class="w-full bg-gray-200">
   <div class="max-w-screen-lg mx-auto text-center px-4">
-  <button @click="toggleSearchType"
+  <button @cliick="toggleSearchType"
     class="text-gray-200 p-2 border border-gray-200 rounded-lg bg-gray-900"><span class="font-bold">Search Mode:</span> {{ googleScholar ? 'Google Scholar' : 'Local TREnD Search' }}</button>
   </div>
 </section>
 
 
-<section v-if="googleScholar" class="w-full min-h-screen bg-gray-200 py-10 ">
+<section v-if="googleScholar" class="w-full min-h-screen bg-gray-200 py-10">
   <div class="lg:w-3/4 max-w-screen-md mx-auto ">
     <form @submit.prevent="handleSearch" class="mx-5 flex gap-2">
       <input type="text" v-model="query" placeholder="Redirected to scholar.google.com"
@@ -426,6 +427,7 @@ const query = ref('')
 const toggleSearchType = () => {
   googleScholar.value = !googleScholar.value
 }
+
 
 const searchClient = instantMeiliSearch(
   "http://138.201.95.25:7700/",
