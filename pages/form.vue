@@ -177,16 +177,16 @@
 
 <script setup>
 
-import { createClient } from '@supabase/supabase-js';
-const supabaseUrl = 'http://138.201.95.25:8000/';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const { $supabase } = useNuxtApp();
+let user = ref(null);  // It's better to initialize with `null` to clearly indicate no user initially
+onMounted(async () => {
+  user = await $supabase.auth.getUser();
+  console.log("(form) User data:", user.data.user.id)
+});
 
-import { useFetch } from 'nuxt/app'
-
-//definePageMeta({
-//  middleware: 'auth'
-//});
+definePageMeta({
+  middleware: 'auth'
+});
 
 const form = ref({
   title: '',
@@ -257,12 +257,21 @@ const removeAuthor = (index) => {
 
 
 const submitForm = async () => {
+
+  // Confirmation dialog
+  if (!confirm("Are you sure you want to submit?")) {
+    return; // Stop the form submission if the user cancels
+  }
+
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await $supabase
       .from('reviews')
       .insert([{
         title: form.value.title,
         authors: form.value.authors,
+        reviewer_id: user.data.user.id,
+        reviewer: user.data.user.user_metadata.fullName,
         trend_keywords: form.value.trend_keywords,
         geoscope: form.value.geoScope,
         fields: fieldsOfInvestigation.value,

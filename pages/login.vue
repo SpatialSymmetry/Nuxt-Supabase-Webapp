@@ -36,16 +36,19 @@
 </template>
 
 <script setup>
-import { createClient } from '@supabase/supabase-js'
+
 
 definePageMeta({
-  layout: ''
+  layout: '',
+  middleware: 'auth'
 })
 
-// Supabase client setup
-const supabaseUrl = 'https://tirgpitrrqhxamhohmxe.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpcmdwaXRycnFoeGFtaG9obXhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE3MDY5MDgsImV4cCI6MjAyNzI4MjkwOH0.p8PK1g_wW5lG12NS7apvLqX8Iu5Rl-PaHyzlqlWpXN4'
-const supabase = createClient(supabaseUrl, supabaseKey)
+const { $supabase } = useNuxtApp();
+
+// onMounted(async () => {
+//   const user = await $supabase.auth.getUser();
+//   console.log('User data:', user.data.user.id);
+// });
 
 const router = useRouter()
 const email = ref('')
@@ -53,7 +56,7 @@ const password = ref('')
 const authError = ref('')
 
 async function login() {
-  const { user, error } = await supabase.auth.signIn({
+  const { user, error } = await $supabase.auth.signInWithPassword({
     email: email.value,
     password: password.value,
   })
@@ -64,7 +67,7 @@ async function login() {
   }
 }
 
-console.log(authError)
+
 </script>
 
 

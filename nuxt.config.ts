@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  plugins: ['~/plugins/meilisearch.js', '~/plugins/vue-instantsearch.js'],
-  devtools: { enabled: false },
+  ssr: false, // Ensure that SSR is turned off
+  plugins: ['~/plugins/meilisearch.js', '~/plugins/vue-instantsearch.js', '~/plugins/supabase.js'],
+  devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {

@@ -3,6 +3,7 @@
 
 <!-- Hero Section -->
 <section class="w-full bg-gray-200 pt-20 pb-12 lg:pt-36 lg:pb-24">
+
   <div class="max-w-screen-lg mx-auto text-center px-4">
     <p class="font-extrabold tracking-tight text-gray-900 text-5xl">TREnD Litrature Review Portal.</p>
     <p class="mt-4 mb-8 sm:px-16 xl:px-48 text-gray-600">The platform is mainly based on the TREnD literature review form (LRF) which aims to provide structured and coherent information on the references examined with respect to TREnDs’ key topics to build a structured and solid literature review.</p>
@@ -16,8 +17,10 @@
 
 <section class="w-full bg-gray-200">
   <div class="max-w-screen-lg mx-auto text-center px-4">
-  <button @cliick="toggleSearchType"
-    class="text-gray-200 p-2 border border-gray-200 rounded-lg bg-gray-900"><span class="font-bold">Search Mode:</span> {{ googleScholar ? 'Google Scholar' : 'Local TREnD Search' }}</button>
+  <button @click="toggleSearchType()"
+    class="text-gray-200 p-2 border border-gray-200 rounded-lg bg-gray-900">
+    <span class="font-bold">Search Mode:</span> {{ googleScholar ? 'Google Scholar' : 'Local TREnD Search' }}
+  </button>
   </div>
 </section>
 
@@ -420,6 +423,17 @@
 </template>
 
 <script setup>
+
+definePageMeta({
+  middleware: 'auth'
+})
+
+const { $supabase } = useNuxtApp();
+onMounted(async () => {
+  const user = await $supabase.auth.getUser();
+  console.log('(index) User data:', user.data.user.id);
+});
+
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const googleScholar = ref(false)
@@ -448,6 +462,7 @@ const handleSearch = () => {
     console.log("Local search for:", query.value)
   }
 }
+
 
 </script>
 

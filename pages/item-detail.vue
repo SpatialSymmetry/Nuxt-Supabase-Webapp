@@ -6,6 +6,11 @@
 </template>
 
 <script setup>
+
+definePageMeta({
+  middleware: 'auth'
+})
+
 import { useRoute } from 'vue-router';
 
 const route = useRoute();

@@ -37,3 +37,18 @@
 
 
 </template>
+
+
+<script setup>
+
+definePageMeta({
+  middleware: 'auth'
+})
+
+const { $supabase } = useNuxtApp();
+onMounted(async () => {
+  const user = await $supabase.auth.getUser();
+  console.log('(guidelines) User data:', user.data.user.id);
+});
+
+</script>
