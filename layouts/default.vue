@@ -2,7 +2,7 @@
 <template>
   <nav class="w-full bg-gray-200">
     <div class="max-w-screen-lg mx-auto py-5 px-5 text-gray-900 font-medium flex justify-between">
-      <NuxtLink to="/">TREnD</NuxtLink>
+      <NuxtLink to="/">EcoSET</NuxtLink>
       <div class="flex gap-6">
         <NuxtLink to="/">Home</NuxtLink>
         <NuxtLink to="/form">Form</NuxtLink>
