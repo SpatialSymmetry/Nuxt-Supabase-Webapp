@@ -4,7 +4,7 @@
 <!-- Hero Section -->
 <section class="w-full bg-gray-200 pt-36">
   <div class="max-w-screen-lg mx-auto text-center px-4">
-    <p class="font-extrabold tracking-tight text-gray-900 text-5xl">TREnD Litrature Review Guidelines.</p>
+    <p class="font-extrabold tracking-tight text-gray-900 text-5xl">EcoSET Litrature Review Guidelines.</p>
     <p class="mt-4 sm:px-16 xl:px-48 text-gray-600">Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident</p>
   </div>
 </section>

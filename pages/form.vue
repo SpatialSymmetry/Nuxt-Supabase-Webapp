@@ -5,7 +5,7 @@
       <div class="bg-gray-700 text-gray-100 m-5 p-5 rounded-lg shadow-lg">
 
         <div class="text-center my-10">
-          <p class="font-extrabold tracking-tight text-4xl mb-2">TREnD Litrature Form.</p>
+          <p class="font-extrabold tracking-tight text-4xl mb-2">EcoSET Litrature Form.</p>
           <p class="sm:px-16 xl:px-44 text-gray-400">Your information, including your name and institution, will be automatically retrieved from your user profile. Each note section is expandable; simply drag the bottom-right corner downward to adjust the size.</p>
         </div>
 
@@ -136,7 +136,7 @@
 
           <!-- Keywords -->
           <div class="pt-5">
-            <p class="text-gray-200 font-bold mb-3">Reference Keywords in accordance with the TREnD Project (Check as many as applies).</p>
+            <p class="text-gray-200 font-bold mb-3">Reference Keywords in accordance with the EcoSET Project (Check as many as applies).</p>
             <div class="flex flex-wrap gap-4">
               <div v-for="entry in trendKeywordEntries" :key="entry" class="flex items-center">
                 <input type="checkbox" :id="`checkbox-${entry}`" :checked="form.trend_keywords.includes(entry)" @change="handleKeywordChange($event, entry)">
