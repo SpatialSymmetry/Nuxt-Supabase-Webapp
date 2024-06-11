@@ -7,7 +7,7 @@
 
     <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
 
-      <h1 class="text-center text-xl tracking-tight">EcoSET Litrature Review Portal Sign Up.</h1>
+      <h1 class="text-center text-xl tracking-tight">ECO-SET Litrature Review Portal Sign Up.</h1>
 
       <form @submit.prevent="signup" class="space-y-4">
 

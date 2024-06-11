@@ -3,7 +3,7 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-200 px-4">
     <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-      <h1 class="text-center text-xl tracking-tight">EcoSET Litrature Review Portal Login.</h1>
+      <h1 class="text-center text-xl tracking-tight">ECO-SET Litrature Review Portal Login.</h1>
 
       <form @submit.prevent="login" class="space-y-4">
         <div>

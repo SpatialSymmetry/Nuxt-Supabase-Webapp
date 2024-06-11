@@ -5,7 +5,7 @@
       <div class="bg-gray-700 text-gray-100 m-5 p-5 rounded-lg shadow-lg">
 
         <div class="text-center my-10">
-          <p class="font-extrabold tracking-tight text-4xl mb-2">EcoSET Litrature Form.</p>
+          <p class="font-extrabold tracking-tight text-4xl mb-2">ECO-SET Litrature Form.</p>
           <p class="sm:px-16 xl:px-44 text-gray-400">Your information, including your name and institution, will be automatically retrieved from your user profile. Each note section is expandable; simply drag the bottom-right corner downward to adjust the size.</p>
         </div>
 
@@ -136,7 +136,7 @@
 
           <!-- Keywords -->
           <div class="pt-5">
-            <p class="text-gray-200 font-bold mb-3">Reference Keywords in accordance with the EcoSET Project (Check as many as applies).</p>
+            <p class="text-gray-200 font-bold mb-3">Reference Keywords in accordance with the ECO-SET Project (Check as many as applies).</p>
             <div class="flex flex-wrap gap-4">
               <div v-for="entry in trendKeywordEntries" :key="entry" class="flex items-center">
                 <input type="checkbox" :id="`checkbox-${entry}`" :checked="form.trend_keywords.includes(entry)" @change="handleKeywordChange($event, entry)">
@@ -232,12 +232,12 @@ const fieldsOfInvestigation = ref([
   { name: 'Strategy (Place-based Approach, Place-sensitive Approach, Other)', checked: false, note: '' },
   { name: 'Spatial Planning', checked: false, note: '' },
   { name: 'Cluster', checked: false, note: '' },
-  { name: 'Knowledge Complexity', checked: false, note: '' },
-  { name: 'Global Market Power', checked: false, note: '' },
-  { name: 'Quality of life', checked: false, note: '' },
-  { name: 'Inequalities', checked: false, note: '' },
-  { name: 'Competitive Advantage', checked: false, note: '' },
-  { name: 'Core/Peripheral areas', checked: false, note: '' },
+  { name: 'Natural Capital', checked: false, note: '' },
+  { name: 'Zoning', checked: false, note: '' },
+  { name: 'Quality of Life', checked: false, note: '' },
+  { name: 'Ecosystem Status', checked: false, note: '' },
+  { name: 'Urban Informatics', checked: false, note: '' },
+  { name: 'Eco Districts', checked: false, note: '' },
   { name: 'Advanced/Lagging regions-cities', checked: false, note: '' },
   { name: 'Urban Transition', checked: false, note: '' },
   { name: 'Local Transformations', checked: false, note: '' },

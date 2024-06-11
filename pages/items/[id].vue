@@ -13,8 +13,19 @@
   <section v-if="data" class="w-full bg-gray-200 pt-5 pb-12 lg:pt-10 lg:pb-10">
     <div class="max-w-screen-lg mx-auto text-center px-4">
 
-      <div class="mb-10">
-        <div class="mx-10 my-2 bg-gray-800 text-gray-200 rounded-md p-4 ">
+      <!-- <div class="mb-10"> -->
+      <!--   <div class="mx-10 my-2 bg-gray-800 text-gray-200 rounded-md p-4 "> -->
+      <!--   <p><span class="font-bold">Relavence (Low, Medium, High): </span> {{ data.relevance }}</p> -->
+      <!--   <p><span class="font-bold">Geoscope: </span> {{ data.geoscope }}</p> -->
+      <!--   <p><span class="font-bold">Research Method (Quantitative, Qualitative, Mixed): </span> {{ data.research_method }}</p> -->
+      <!--   <p><span class="font-bold">Case Study (True, False): </span> {{ data.case_study }}</p> -->
+      <!--   <p><span class="font-bold">Reference Typography: </span> {{ data.ref_typography }}</p> -->
+      <!--   <p><span class="font-bold">Source Typography: </span> {{ data.source_typography }}</p> -->
+      <!--   </div> -->
+      <!-- </div> -->
+
+      <div class="mb-10 flex justify-center items-center">
+        <div class="mx-10 my-2 bg-gray-200 text-gray-800 rounded-md p-4 border border-gray-800">
         <p><span class="font-bold">Relavence (Low, Medium, High): </span> {{ data.relevance }}</p>
         <p><span class="font-bold">Geoscope: </span> {{ data.geoscope }}</p>
         <p><span class="font-bold">Research Method (Quantitative, Qualitative, Mixed): </span> {{ data.research_method }}</p>
@@ -25,18 +36,18 @@
       </div>
 
       <div class="mb-10">
-        <p class="tracking-tight text-md">TREnD Keywords:</p>
-        <p class="mx-10 my-2 bg-gray-800 text-gray-200 rounded-md p-4 ">{{ data.trend_keywords.join(', ') }}</p>
+        <p class="font-bold tracking-tight">ECO-SET Keywords:</p>
+        <p class="mx-10 my-2 bg-gray-200 text-gray-800 rounded-md p-4 border border-gray-800">{{ data.trend_keywords.join(', ') }}</p>
       </div>
 
       <div class="mb-10">
-        <p class="tracking-tight text-md">TREnD Key Fields of Investigation: </p>
-        <p class="mx-10 my-2 bg-gray-800 text-gray-200 rounded-md p-4 ">{{ data.fields.map(item => item.name).join(', ') }}</p>
+        <p class="font-bold tracking-tight">ECO-SET Key Fields of Investigation: </p>
+        <p class="mx-10 my-2 bg-gray-200 text-gray-800 rounded-md p-4 border border-gray-800">{{ data.fields.map(item => item.name).join(', ') }}</p>
       </div>
 
       <div class="mb-10">
-        <p class="tracking-tight text-md">Citation:</p>
-        <p class="mx-10 my-2 bg-gray-800 text-gray-200 rounded-md p-4 ">{{ data.citation }}</p>
+        <p class="font-bold tracking-tight">Citation:</p>
+        <p class="mx-10 my-2 bg-gray-200 text-gray-800 rounded-md p-4 border border-gray-800">{{ data.citation }}</p>
       </div>
 
 
