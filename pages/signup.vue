@@ -8,9 +8,9 @@
 
       <h1 class="mb-6 text-center text-xl tracking-tight">ECO-SET Litrature Review Portal Sign Up.</h1>
 
-      <form @submit.prevent="signup" class="flex flex-col gap-4">
+      <form @submit.prevent="signup" class="flex flex-col gap-2">
 
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-2">
           <label for="email" class="text-sm font-medium text-gray-700">Enter Your Email:</label>
           <input type="email" v-model="form.email" required 
             class="px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400
@@ -18,17 +18,31 @@
           <!-- <p v-if="emailError" class="text-red-500 text-sm">{{ emailError }}</p> -->
         </div>
 
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-2">
           <label class="text-sm font-medium text-gray-700">Set Your Account's Password: (It has to contain atleast 8 character, upper and lower case letters, a number and a symbol.)</label>
           <input type="password" v-model="form.password" required 
             class="px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm">
         </div>
 
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-2">
           <p class="mt-3 block text-sm font-medium text-gray-700">Verify Your Password</p>
           <input type="password" v-model="form.password_confirm"
             class="px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm">
         </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="mt-3 block text-sm font-medium text-gray-700">Your Full Name</p>
+          <input type="password" v-model="form.fullname"
+            class="px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm">
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="mt-3 block text-sm font-medium text-gray-700">Your University/Institution</p>
+          <input type="password" v-model="form.institution"
+            class="px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm">
+        </div>
+
+
 
         <div>
           <!-- <button type="submit" :disabled="!isEmailValid" -->
@@ -60,43 +74,28 @@ const form = ref({
   email: '',
   password: '',
   password_confirm: '',
+  fullname: '',
+  institution: '',
+  bio: '',
 });
 
 async function signup() {
     const { user, error } = await $supabase.auth.signUp({
       email: form.value.email,
-      password: form.value.password
+      password: form.value.password,
+      options:{
+        data:{
+          fullname: form.value.fullname,
+          institution: form.value.institution,
+          bio: form.value.bio,
+        }
+      }
     })
     console.log(form.value.email)
     if (error){
     console.log(error)
     }
 }
-
-
-// definePageMeta({
-//   layout: '',
-//   middleware: 'auth'
-// })
-
-
-
-// const router = useRouter()
-// const allowedSuffixes = ["@gmail.com", "@organization.org", "@institution.edu"]
-// const emailError = ref('')
-
-
-// const isEmailValid = computed(() => {
-//   // Check if the email ends with any of the allowed suffixes
-//   const isValidSuffix = allowedSuffixes.some(suffix => form.email.value.endsWith(suffix));
-//   if (isValidSuffix) {
-//     emailError.value = ''
-//     return true
-//   } else {
-//     emailError.value = `Please use a professional email that ends with one of the following: ${allowedSuffixes.join(', ')}`
-//     return false
-//   }
-// })
 
 </script>
 
