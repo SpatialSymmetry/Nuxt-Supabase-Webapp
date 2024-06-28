@@ -6,7 +6,7 @@
       <p class="font-extrabold tracking-tight text-gray-900 text-3xl">{{ data.title }}</p>
       <p class="pt-2 tracking-tight text-xl">{{ data.authors.join(', ') }}</p>
       <p class="pt-2 tracking-tight text-md">Reviewed by {{ data.reviewer }}, {{ data.created_at.split('T')[0] }}</p>
-      <p class="mt-10 px-10 text-gray-600"> {{ data.comment }} Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, earum quia numquam amet voluptas nisi, minima laborum fugiat laboriosam tempore pariatur asperiores fugit facilis quasi doloribus ipsum! Cumque, explicabo voluptatum.</p>
+      <p class="mt-10 px-10 text-gray-600"> {{ data.comment }} </p>
     </div>
   </section>
 
@@ -42,7 +42,7 @@
 
       <div class="mb-10">
         <p class="font-bold tracking-tight">ECO-SET Key Fields of Investigation: </p>
-        <p class="mx-10 my-2 bg-gray-200 text-gray-800 rounded-md p-4 border border-gray-800">{{ data.fields.map(item => item.name).join(', ') }}</p>
+        <p class="mx-10 my-2 bg-gray-200 text-gray-800 rounded-md p-4 border border-gray-800">{{ data.fields.filter(item => item.checked).map(item => item.name).join(', ') }}</p>
       </div>
 
       <div class="mb-10">
